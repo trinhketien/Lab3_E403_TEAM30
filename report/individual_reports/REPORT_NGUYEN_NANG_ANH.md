@@ -35,3 +35,16 @@ return jsonify({
 
 ---
 
+## III. Personal Insights: Chatbot vs ReAct (10 Points)
+
+1. **Reasoning**: Code mảng Trace render lên web chứng minh `Thought` đã đem LLM ra ánh sáng. Chatbot bên trái là Hộp Đen (Blackbox), còn Agent bên phải giải thích từng rễ cụm tư duy. Người dùng đọc Thought trên màn hình sẽ tin tưởng quyết định của AI hơn.
+2. **Reliability**: Sự đánh đổi. Agent bên phải tốn thời gian 8-10 giây để nảy ra được câu trả lời cuối, tạo tâm lý đợi chờ mệt mỏi cho End-User. Trong khi Chatbot tốn 2 giây. Về tốc độ, Agent luôn thua.
+3. **Observation**: Mỗi một Observation trả về từ Backend (Tool) đẩy trực tiếp vào mảng Trace, tôi có thể Render ra màu Đỏ (nếu lỗi) hoặc Xanh (nếu có dữ liệu) để debug quá trình LLM hái dữ liệu thực.
+
+---
+
+## IV. Future Improvements (5 Points)
+
+- **Scalability**: Nâng cấp Server chạy bằng ASGI (FastAPI) thay vì WSGI (Flask) để xử lý Asynchronous WebSockets, chống kẹt nghẽn hàng đợi khi 100 Users vào hỏi giá máy tính cùng lúc.
+- **Safety**: Lắp API Rate Limiter vào từng IP gọi trên Website, tránh việc bị kẻ xấu rải Bot nhấp nút Spam làm tiêu tốn bộn tiền token chạy qua `gpt-4o`.
+- **Performance**: Nâng cấp Frontend UI thành luồng Server-Sent Event (SSE) Streaming. Tức là Agent nghĩ ra `Thought` tới đâu, chữ phụt lên màn hình tới đó theo Realtime thay vì gộp nén đẩy về 1 cục sau 10 giây.
